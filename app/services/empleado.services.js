@@ -10,4 +10,12 @@ module.exports= class Empleado{
         const empleados=this.EmpleadoModel.findAll();
         return empleados;
     }
+    obtenerEmpleado(username){
+        const empleado=this.EmpleadoModel.findAll({
+            where:{
+                user:username
+            }
+        });
+        return empleado;
+    }
 }

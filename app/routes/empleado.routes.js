@@ -2,9 +2,9 @@ const express=require('express');
 const router=express.Router();
 const controllerEmpleado=require('../controllers/empleado.controllers')
 
-router.get('/empleados',controllerEmpleado.obtenerUsuarios);
+router.get('/empleados',controllerEmpleado.obtenerEmpleados);
 router.post('/empleados',controllerEmpleado.createEmpleado);
-router.get('/empleados/:username');
+router.get('/empleados/:username',controllerEmpleado.obtenerEmpleado);
 router.put('/empleados/:username');
 router.delete('/empleados/:username');
 
