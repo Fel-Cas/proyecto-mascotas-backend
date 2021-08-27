@@ -2,19 +2,18 @@ const bcrypt=require('bcrypt');
 module.exports=(sequelize,type)=>{
     return sequelize.define('empleado',{
         id:{
-            type:type.INTEGER,
+            type:type.STRING,
             primaryKey:true,
         },
-        user:{
-            type:type.STRING(100),
-            unique:true,
-            notNull:true
-        },
-        names:{
+        firstName:{
             type:type.STRING(150),
             notNull:true
         },
-        lastnames:{
+        secondName:{
+            type:type.STRING(150),
+            notNull:false
+        },
+        lastName:{
             type:type.STRING(150),
             notNull:true
         },
@@ -27,17 +26,13 @@ module.exports=(sequelize,type)=>{
                     msg:'No es una dirección de correo electronico'
                 }
             }
-        },
-        password:{
-            type:type.STRING(200),
-            notNull:true,
-        },
+        },       
         birthday:{
             type:type.DATE,
             notNull:true
         },
-        cellphoneNumber:{
-            type:type.INTEGER,
+        phoneNumber:{
+            type:type.STRING,
             notNull:true
         },
         salary:{
@@ -48,26 +43,6 @@ module.exports=(sequelize,type)=>{
             type:type.INTEGER,
             notNull:true,
             defaultValue:1
-        },
-        role:{
-            type:type.STRING(200),
-            notNull:true
         }
-    },{
-    
-        hooks:{
-            beforeCreate:async (empleado) => {
-                if (empleado.password) {
-                 const salt = await bcrypt.genSaltSync(10, null);
-                 empleado.password = bcrypt.hashSync(empleado.password, salt);
-                }
-               }
-             }
-    },{
-        instanceMethods: {
-            validPassword: (password) => {
-             return bcrypt.compareSync(password, this.password);
-            }
-           }   
     })
 }

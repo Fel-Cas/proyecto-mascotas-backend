@@ -10,10 +10,27 @@ module.exports= class Empleado{
         const empleados=this.EmpleadoModel.findAll();
         return empleados;
     }
-    obtenerEmpleado(username){
-        const empleado=this.EmpleadoModel.findAll({
+    obtenerEmpleado(id){
+        const empleado=this.EmpleadoModel.findOne({
             where:{
-                user:username
+                id:id
+            }
+        });
+        return empleado;
+    }
+
+    borrarEmpleado(id){
+        const empleado=this.EmpleadoModel.destroy({
+            where:{
+                id:id
+            }
+        });
+    }
+
+    actualizarEmpleado(id, datos){
+        const empleado=this.EmpleadoModel.update(datos, {
+            where:{
+                id:id
             }
         });
         return empleado;
