@@ -7,20 +7,24 @@ module.exports=(sequelize,type)=>{
         },
         firstName:{
             type:type.STRING(150),
-            notNull:true
+            allowNull:false
         },
         secondName:{
             type:type.STRING(150),
-            notNull:false
+            allowNull:true
         },
-        lastName:{
+        firstlastName:{
             type:type.STRING(150),
-            notNull:true
+            allowNull:false
+        },
+        secondlastName:{
+            type:type.STRING(150),
+            allowNull:true
         },
         email:{
             type:type.STRING(200),
             unique:true,
-            notNull:true,
+            allowNull:false,
             validate:{
                 isEmail:{
                     msg:'No es una dirección de correo electronico'
@@ -29,19 +33,19 @@ module.exports=(sequelize,type)=>{
         },       
         birthday:{
             type:type.DATE,
-            notNull:true
+            allowNull:false
         },
         phoneNumber:{
             type:type.STRING,
-            notNull:true
+            allowNull:false
         },
         salary:{
             type:type.INTEGER,
-            notNull:true
+            allowNull:false
         },
         isActive:{
             type:type.INTEGER,
-            notNull:true,
+            allowNull:false,
             defaultValue:1
         }
     })

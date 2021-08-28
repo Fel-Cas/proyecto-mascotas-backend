@@ -9,17 +9,17 @@ module.exports=(sequelize,type)=>{
         empleadoId:{
             type:type.STRING,
             unique:true,
-            notNull:true
+            allowNull:false
         },
         username:{
             type:type.STRING(150),
             unique:true,
-            notNull:true
+            allowNull:false
         },
         email:{
             type:type.STRING(200),
             unique:true,
-            notNull:true,
+            allowNull:false,
             validate:{
                 isEmail:{
                     msg:'No es una dirección de correo electronico'
@@ -28,11 +28,11 @@ module.exports=(sequelize,type)=>{
         },
         password:{
             type:type.STRING(200),
-            notNull:true,
+            allowNull:false
         },
         role:{
             type:type.STRING(200),
-            notNull:true
+            allowNull:false
         }
     },{
     
