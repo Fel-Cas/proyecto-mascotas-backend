@@ -1,9 +1,11 @@
 const {Empleado}=require('../config/mysql');
 const ServiceEmpleado=require('../services/empleado.services');
 const service=new ServiceEmpleado(Empleado);
+const emailer=require('../services/correo.service');
 
 exports.createEmpleado= async (req,res)=>{
     let empleado=await service.createEmpleado(req.body);
+    emailer.sendMail(empleado.email,'pepe','1234');
     res.status(201).send({empleado});
 }
 
