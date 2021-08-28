@@ -10,10 +10,10 @@ module.exports= class User{
         const users=this.UserModel.findAll();
         return users;
     }
-    obtenerUser(id){
+    obtenerUser(username){
         const user=this.UserModel.findOne({
             where:{
-                id:id
+                username:username
             }
         });
         return user;

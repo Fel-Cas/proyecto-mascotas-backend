@@ -18,7 +18,6 @@ exports.createCredential=async(empleado,userModel)=>{
     let datos={
         empleadoId:empleado.id,
         username:user.username,
-        email:empleado.email,
         password:user.password
     };
     await userModel.create(datos);
