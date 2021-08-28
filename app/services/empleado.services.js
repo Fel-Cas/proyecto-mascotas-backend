@@ -18,7 +18,14 @@ module.exports= class Empleado{
         });
         return empleado;
     }
-
+    obtenerEmpleadoByEmail(email){
+        const empleado=this.EmpleadoModel.findOne({
+            where:{
+                email:email
+            }
+        });
+        return empleado;
+    }
     borrarEmpleado(id){
         const empleado=this.EmpleadoModel.destroy({
             where:{
