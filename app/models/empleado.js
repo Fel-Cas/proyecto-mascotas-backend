@@ -47,6 +47,10 @@ module.exports=(sequelize,type)=>{
             type:type.INTEGER,
             allowNull:false,
             defaultValue:1
+        },
+        role:{
+            type:type.STRING(200),
+            allowNull:false
         }
     })
 }

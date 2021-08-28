@@ -29,10 +29,10 @@ module.exports=(sequelize,type)=>{
         password:{
             type:type.STRING(200),
             allowNull:false
-        },
-        role:{
-            type:type.STRING(200),
-            allowNull:false
+        },isActive:{
+            type:type.INTEGER,
+            allowNull:false,
+            defaultValue:1
         }
     },{
     
