@@ -2,6 +2,7 @@ const express=require('express');
 const cors=require('cors');
 const {sequelize}=require('./config/mysql');
 const routerEmpleado=require('./routes/empleado.routes');
+const routerUser=require('./routes/user.routes');
 const logger = require('morgan');
 
 
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
 
-app.use('/api-usuario',routerEmpleado);
+app.use('/api-empleado',routerEmpleado);
+app.use('/api-user',routerUser);
 
   // error handler
   app.use(function(err, req, res, next) {

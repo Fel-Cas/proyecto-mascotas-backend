@@ -8,10 +8,12 @@ module.exports=(sequelize,type)=>{
         },
         empleadoId:{
             type:type.STRING,
+            unique:true,
             notNull:true
         },
         username:{
             type:type.STRING(150),
+            unique:true,
             notNull:true
         },
         email:{
