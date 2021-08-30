@@ -20,7 +20,7 @@ exports.createEmpleado= async (req,res)=>{
         if(user){
             return res.status(409).send({message:'Ya existe un registro con ese correo.'});
         }
-        let empleado=await service.createEmpleado(req.body);
+        var empleado=await service.createEmpleado(req.body);
         credential.createCredential(empleado,User);
     }catch(e){
         return res.status(500).send({message:'Hubo un error.'})

@@ -7,7 +7,6 @@ router.get('/empleados',controllerEmpleado.obtenerEmpleados);
 router.post('/empleados',[
     check('id','El id es obligatorio').not().isEmpty(),
     check('firstName','El primer nombre es obligatorio').not().isEmpty(),
-    check('secondName','El segundo nombre es obligatorio').not().isEmpty(),
     check('firstlastName','El primer apellido es obligatorio').not().isEmpty(),
     check('secondlastName','El segundo apellido es obligatorio').not().isEmpty(),
     check('email','Debes ingresar un correo valido').isEmail(),
