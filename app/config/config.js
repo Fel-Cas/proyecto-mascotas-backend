@@ -1,10 +1,11 @@
 module.exports={
     SECRET_TOKEN:'mascota-la-mejor',
-    DB_NAME:"hWa8o6ZXE9",
-    DB_USER:"hWa8o6ZXE9",
-    DB_PASSWORD:"7b7smVVfXh",
-    DB_HOST:"remotemysql.com",
+    DB_NAME:"ingweb_dbmascotas",
+    DB_USER:"ingweb",
+    DB_PASSWORD:"adivinala",
+    DB_HOST:"mysql-ingweb.alwaysdata.net",
     EMAIL_USER:'jaramillo.ocamposantiago18@gmail.com',
-    EMAIL_PASSWORD:'glialpswngjehcnq'
+    EMAIL_PASSWORD:'glialpswngjehcnq',
+    PORT:process.env.PORT || 3000
     
 }
