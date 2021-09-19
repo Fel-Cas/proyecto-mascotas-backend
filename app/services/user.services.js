@@ -10,7 +10,7 @@ module.exports= class User{
         const users=this.UserModel.findAll();
         return users;
     }
-    obtenerUser(username){
+    obtenerUserByUsername(username){
         const user=this.UserModel.findOne({
             where:{
                 username:username
@@ -18,6 +18,25 @@ module.exports= class User{
         });
         return user;
     }
+
+    obtenerUserByEmpleadoId(empleadoId){
+        const user=this.UserModel.findOne({
+            where:{
+                empleadoId:empleadoId
+            }
+        });
+        return user;
+    }
+
+    obtenerUserById(id){
+        const user=this.UserModel.findOne({
+            where:{
+                id:id
+            }
+        });
+        return user;
+    }
+
 
     borrarUser(id){
         const user=this.UserModel.destroy({

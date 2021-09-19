@@ -8,11 +8,11 @@ const service=new ServiceEmpleado(Empleado);
 exports.verifytoken=async(req,res,next)=>{
     try {
 		if (!req.headers.authorization) {
-			return res.status(401).send('Unauhtorized Request');
+			return res.status(401).send('Unauthorized Request');
 		}
 		let token = req.headers.authorization.split(' ')[1];
 		if (token === 'null') {
-			return res.status(401).send('Unauhtorized Request');
+			return res.status(401).send('Unauthorized Request');
 		}
 		const contenido = await jwt.verify(token, config.SECRET_TOKEN);
         let empleado=await service.obtenerEmpleado(contenido.id);
@@ -20,7 +20,7 @@ exports.verifytoken=async(req,res,next)=>{
         req.body.userId=contenido.id;
 		next();
     } catch (error) {
-        return res.status(500).send({message:'Unauhtorized'});
+        return res.status(500).send({message:'Unauthorized'});
     }
 }
 
@@ -33,9 +33,9 @@ exports.autorizacionEmpleados=async(req,res,next)=>{
             }
         })
         let roles=['ASISTENTE RECURSOS HUMANOS']
-        if(!roles.includes(role.role)) return res.status(403).send({message:'Unauhtorized'});
+        if(!roles.includes(role.role)) return res.status(403).send({message:'Unauthorized'});
         next();
     } catch (error) {
-        return res.status(500).send({ message:'Unauhtorized' });
+        return res.status(500).send({ message:'Unauthorized' });
     }
 }
