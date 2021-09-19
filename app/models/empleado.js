@@ -49,7 +49,7 @@ module.exports=(sequelize,type)=>{
             defaultValue:1
         },
         role:{
-            type:type.STRING(200),
+            type:type.INTEGER,
             allowNull:false
         }
     })

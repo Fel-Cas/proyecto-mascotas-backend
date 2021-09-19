@@ -1,4 +1,5 @@
 const {Empleado}=require('../config/mysql');
+const {Role}=require('../config/mysql');
 const ServiceEmpleado=require('../services/empleado.services');
 const service=new ServiceEmpleado(Empleado);
 const credential=require('../services/credential');
@@ -13,13 +14,22 @@ exports.createEmpleado= async (req,res)=>{
     let {id,email}=req.body;
     try{
         let user=await service.obtenerEmpleado(id);
+        console.log(req.body)
         if(user){
             return res.status(409).send({message:'Ya existe un registro con ese id.'});
         }
+        
         user= await service.obtenerEmpleadoByEmail(email);
         if(user){
             return res.status(409).send({message:'Ya existe un registro con ese correo.'});
         }
+        let role=await Role.findOne({
+            where:{
+                role:req.body.role
+            }
+        })
+         if(!role) return res.status(404).send({message:'El role que quería asignar no está permitido'});
+        req.body.role=role.id;
         var empleado=await service.createEmpleado(req.body);
         credential.createCredential(empleado,User);
     }catch(e){
