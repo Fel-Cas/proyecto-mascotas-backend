@@ -4,7 +4,10 @@ const {sequelize}=require('./config/mysql');
 const routerEmpleado=require('./routes/empleado.routes');
 const routerUser=require('./routes/user.routes');
 const routerAuth=require('./routes/auth.routes');
+const routerMascota=require('./routes/mascota.routes');
 const logger = require('morgan');
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 3050;
 
 const app=express();
 
@@ -20,6 +23,7 @@ app.use(cors());
 app.use('/api-empleado',routerEmpleado);
 app.use('/api-user',routerUser);
 app.use('/api-auth',routerAuth);
+app.use('/api-mascota',routerMascota);
 
   // error handler
   app.use(function(err, req, res, next) {
