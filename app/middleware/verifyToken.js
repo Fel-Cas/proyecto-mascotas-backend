@@ -48,7 +48,7 @@ exports.autorizacionMascotas=async(req,res,next)=>{
                 id:empleado.role
             }
         })
-        let roles=['PROFESOR DE GUARDERIA']
+        let roles=['PROFESOR GUARDERIA']
         if(!roles.includes(role.role)) return res.status(403).send({message:'Unauthorized'});
         next();
     } catch (error) {
