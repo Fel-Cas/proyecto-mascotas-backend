@@ -1,11 +1,11 @@
 const express=require('express');
 const router=express.Router();
-const controllerUser=require('../controllers/mascota.controller')
+const controllerMascota=require('../controllers/mascota.controllers')
 
-router.get('/users',controllerUser.obtenerUsers);
-router.post('/users',controllerUser.createUser);
-router.get('/users/:id',controllerUser.obtenerUser);
-router.put('/users/:id',controllerUser.actualizarUser);
-router.delete('/users/:id',controllerUser.borrarUser);
+router.get('/mascotas',controllerMascota.obtenerMascotas);
+router.post('/mascotas',controllerMascota.createMascota);
+router.get('/mascotas/:id',controllerMascota.obtenerMascota);
+router.put('/mascotas/:id',controllerMascota.actualizarMascota);
+router.delete('/mascotas/:id',controllerMascota.borrarMascota);
 
 module.exports=router;

@@ -45,6 +45,14 @@ module.exports= class User{
             }
         });
     }
+    
+    borrarUserByEmpleadoId(id){
+        this.UserModel.destroy({
+            where:{
+                empleadoId:id
+            }
+        })
+    }
 
     actualizarUser(id, datos){
         const user=this.UserModel.update(datos, {

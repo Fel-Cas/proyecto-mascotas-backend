@@ -32,7 +32,23 @@ exports.autorizacionEmpleados=async(req,res,next)=>{
                 id:empleado.role
             }
         })
-        let roles=['ASISTENTE RECURSOS HUMANOS']
+        let roles=['ASISTENTE RECURSOS HUMANOS','GERENTE GENERAL','ASISTENTE DE GERENCIA']
+        if(!roles.includes(role.role)) return res.status(403).send({message:'Unauthorized'});
+        next();
+    } catch (error) {
+        return res.status(500).send({ message:'Unauthorized' });
+    }
+}
+
+exports.autorizacionMascotas=async(req,res,next)=>{
+    try {
+        let empleado=await service.obtenerEmpleado(req.body.userId);
+        let role=await Role.findOne({
+            where:{
+                id:empleado.role
+            }
+        })
+        let roles=['PROFESOR DE GUARDERIA']
         if(!roles.includes(role.role)) return res.status(403).send({message:'Unauthorized'});
         next();
     } catch (error) {

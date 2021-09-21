@@ -25,7 +25,7 @@ exports.login=async(req,res)=>{
             return res.status(400).send({message:errorMessages.errorWrongUsernamePassword});
         }
         const token=jwt.sign({id:user.empleadoId},config.SECRET_TOKEN,{expiresIn:'1h'});
-        res.status(200).send({message:'Ok',toke:token,userId:user.empleadoId});
+        res.status(200).send({message:'Ok',token:token,userId:user.empleadoId});
     }catch(err){
         return res.status(500).send({message:errorMessages.error});
     }

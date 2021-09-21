@@ -42,23 +42,26 @@ exports.obtenerUser= async(req,res)=>{
     let username=req.params.username;
     try{
         var user=await service.obtenerUserByUsername(username);
+        if(user)return res.status(200).send({user});
+        return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    if(user)return res.status(200).send({user});
-    return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
+    
 }
 
 exports.borrarUser=async(req,res)=>{
     let id=req.params.id;
     try{
         var user=await service.obtenerUserById(id);
+        if(!user)return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
+        await service.borrarUser(id);
+        
+        return res.status(200).send({message: 'El usuario se eliminó'});
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    if(!user)return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
-    await service.borrarUser(id);
-    return res.status(200).send({message: 'El usuario se eliminó'});
+    
 }
 
 exports.actualizarUser=async(req,res)=>{
@@ -66,11 +69,12 @@ exports.actualizarUser=async(req,res)=>{
     let datos=req.body;
     try{
         var user=await service.obtenerUserById(id);
+        if(!user)return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
+        await service.actualizarUser(id,datos);
+        return res.status(200).send({message: 'El usuario se actualizó'});
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    if(!user)return res.status(404).send({message:errorMessages.errorUsuarioInexistente});
-    await service.actualizarUser(id,datos);
-    return res.status(200).send({message: 'El usuario se actualizó'});
+    
 }
 

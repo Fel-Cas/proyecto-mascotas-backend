@@ -6,7 +6,6 @@ const routerUser=require('./routes/user.routes');
 const routerAuth=require('./routes/auth.routes');
 const routerMascota=require('./routes/mascota.routes');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3050;
 
 const app=express();
