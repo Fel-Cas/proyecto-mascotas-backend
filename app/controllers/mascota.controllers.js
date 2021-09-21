@@ -22,6 +22,9 @@ exports.createMascota= async (req,res)=>{
 exports.obtenerMascotas=async(req,res)=>{
     try {
         let mascotas=await service.obtenerMascotas();
+        if(mascotas.length<=0){
+            return res.status(404).send({message:'No hay mascotas registradas'});
+        }
         res.status(200).send({mascotas});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
@@ -56,10 +59,11 @@ exports.actualizarMascota=async(req,res)=>{
     try {
         let id=req.params.id;
         let datos=req.body;
+        
         let mascota=await service.obtenerMascota(id);
         if(!mascota)return res.status(404).send({message: 'Mascota no identificada.'});
         await service.actualizarMascota(id,datos);
-        return res.status(200).send({message: 'Datos de Mascota actualizada'});
+        return res.status(200).send({message: 'Datos de Mascota actualizados'});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     } 

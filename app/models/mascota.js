@@ -2,19 +2,20 @@ const bcrypt=require('bcrypt');
 module.exports=(sequelize,type)=>{
     return sequelize.define('mascota',{
         id:{
-            type:type.STRING,
+            type:type.INTEGER,
             primaryKey:true,
+            autoIncrement: true
         },
         name:{
-            type:type.STRING(150),
+            type:type.STRING(350),
             allowNull:false
         },
         breed:{
-            type:type.STRING(100),
+            type:type.STRING(300),
             allowNull:true
         },
         size:{
-            type:type.STRING(100),
+            type:type.STRING(300),
             allowNull:false
         },
         birthyear:{
@@ -26,7 +27,7 @@ module.exports=(sequelize,type)=>{
             allowNull:false
         },
         cuidados:{
-            type:type.STRING,
+            type:type.STRING(2000),
             allowNull:false
         }
     })

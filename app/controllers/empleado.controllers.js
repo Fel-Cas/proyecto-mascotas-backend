@@ -41,6 +41,9 @@ exports.createEmpleado= async (req,res)=>{
 exports.obtenerEmpleados=async(req,res)=>{
     try{
         var empleados=await service.obtenerEmpleados();
+        if(empleados.length<=0){
+            return res.status(404).send({message:errorMessages.errorEmpleadosInexistentes});
+        }
         for(i=0; i<empleados.length;i++){
             let role=await Role.findOne({
                 where:{
@@ -53,9 +56,7 @@ exports.obtenerEmpleados=async(req,res)=>{
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    if(empleados.length<=0){
-        return res.status(404).send({message:errorMessages.errorEmpleadosInexistentes});
-    }
+    
     
 }
 
@@ -63,17 +64,21 @@ exports.obtenerEmpleado= async(req,res)=>{
     let id=req.params.id;
     try{
         var empleado=await service.obtenerEmpleado(id);
-        let role=await Role.findOne({
-            where:{
-                id:empleado.role
-            }
-        });
-        empleado.role=role.role;
+        if(empleado){
+            let role=await Role.findOne({
+                where:{
+                    id:empleado.role
+                }
+            });
+            empleado.role=role.role;
+            return res.status(200).send({empleado});
+        }
+        return res.status(404).send({message:errorMessages.errorEmpleadoInexistente});
+        
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    if(empleado)return res.status(200).send({empleado});
-    return res.status(404).send({message:errorMessages.errorEmpleadoInexistente});
+    
 }
 
 exports.borrarEmpleado=async(req,res)=>{
@@ -105,9 +110,10 @@ exports.actualizarEmpleado=async(req,res)=>{
         var empleado=await service.obtenerEmpleado(id);
         if(!empleado)return res.status(404).send({message:errorMessages.errorEmpleadoInexistente});
         await service.actualizarEmpleado(id,datos);
+        return res.status(200).send({message: 'El usuario se actualizó'});
     }catch(e){
         return res.status(500).send({message:errorMessages.error})
     }
-    return res.status(200).send({message: 'El usuario se actualizó'});
+    
 }
 

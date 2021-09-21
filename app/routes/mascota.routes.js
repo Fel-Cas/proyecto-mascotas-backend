@@ -3,9 +3,10 @@ const router=express.Router();
 const{check,validatorResult}=require('express-validator');
 const controllerMascota=require('../controllers/mascota.controllers');
 const errorMessages=require('../config/errors');
+const authorization=require('../middleware/verifyToken')
 
-router.get('/mascotas',controllerMascota.obtenerMascotas);
-router.post('/mascotas',[
+router.get('/mascotas',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.obtenerMascotas);
+router.post('/mascotas',[authorization.verifytoken,authorization.autorizacionMascotas],[
     check('name',errorMessages.errorNombreObligatorio).not().isEmpty(),
     check('breed',errorMessages.errorRazaObligatorio).not().isEmpty(),
     check('size',errorMessages.errorTamañoObligatorio).not().isEmpty(),
@@ -13,8 +14,8 @@ router.post('/mascotas',[
     check('planDeVacunacion',errorMessages.errorPlanObligatorio).not().isEmpty(),
     check('cuidados',errorMessages.errorCuidadosObligatorio).not().isEmpty(),
 ],controllerMascota.createMascota);
-router.get('/mascotas/:id',controllerMascota.obtenerMascota);
-router.put('/mascotas/:id',controllerMascota.actualizarMascota);
-router.delete('/mascotas/:id',controllerMascota.borrarMascota);
+router.get('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.obtenerMascota);
+router.put('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.actualizarMascota);
+router.delete('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascota);
 
 module.exports=router;

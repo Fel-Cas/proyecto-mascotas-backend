@@ -10,10 +10,10 @@ module.exports= class Mascota{
         const mascotas=this.MascotaModel.findAll();
         return mascotas;
     }
-    obtenerMascota(mascotaname){
+    obtenerMascota(id){
         const mascota=this.MascotaModel.findOne({
             where:{
-                mascotaname:mascotaname
+                id:id
             }
         });
         return mascota;
