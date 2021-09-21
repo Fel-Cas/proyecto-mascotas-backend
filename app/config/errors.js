@@ -19,4 +19,10 @@ module.exports={
     errorRolObligatorio:"El rol del empleado es obligatorio.",
     errorUsuarioInexistente:"El nombre de usuario no existe.",
     errorUsuarioExistente:"El nombre de usuario ya existe.",
+    errorNombreObligatorio:"El nombre es obligatorio.",
+    errorRazaObligatorio:"La raza es obligatoria.",
+    errorTamañoObligatorio:"El tamaño es obligatorio",
+    errorAñoObligatorio:"El año de nacimiento (aproximado) es obligatorio",
+    errorPlanObligatorio:"La ruta del archivo Plan de Vacunación es obligatoria.",
+    errorCuidadosObligatorio:"La ruta del archivo Cuidados es obligatoria."
 }
