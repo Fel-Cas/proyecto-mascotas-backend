@@ -23,10 +23,11 @@ exports.createUser= async (req,res)=>{
             return res.status(409).send({message:errorMessages.errorUsuarioExistente});
         }
         var user=await service.createUser(req.body);
+        res.status(201).send({user});
     }catch(e){
         return res.status(500).send({message:errorMessages.error});
     }  
-    res.status(201).send({user});
+    
 }
 
 exports.obtenerUsers=async(req,res)=>{
