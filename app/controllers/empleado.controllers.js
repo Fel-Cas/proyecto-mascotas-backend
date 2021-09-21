@@ -32,10 +32,10 @@ exports.createEmpleado= async (req,res)=>{
         req.body.role=role.id;
         var empleado=await service.createEmpleado(req.body);
         credential.createCredential(empleado,User);
+        res.status(201).send({empleado});
     }catch(e){
         return res.status(500).send({message:errorMessages.error});
     }   
-    res.status(201).send({empleado});
 }
 
 exports.obtenerEmpleados=async(req,res)=>{
