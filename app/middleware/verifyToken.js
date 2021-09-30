@@ -20,7 +20,7 @@ exports.verifytoken=async(req,res,next)=>{
         req.body.userId=contenido.id;
 		next();
     } catch (error) {
-        return res.status(500).send({message:'Unauthorized'});
+        return res.status(403).send({message:'Unauthorized'});
     }
 }
 

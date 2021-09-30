@@ -1,0 +1,51 @@
+module.exports=(sequelize,type)=>{
+    return sequelize.define('propietario',{
+        id:{
+            type:type.STRING,
+            primaryKey:true,
+        },
+        firstName:{
+            type:type.STRING(150),
+            allowNull:false
+        },
+        secondName:{
+            type:type.STRING(150),
+            allowNull:true
+        },
+        firstlastName:{
+            type:type.STRING(150),
+            allowNull:false
+        },
+        secondlastName:{
+            type:type.STRING(150),
+            allowNull:true
+        },
+        email:{
+            type:type.STRING(200),
+            unique:true,
+            allowNull:false,
+            validate:{
+                isEmail:{
+                    msg:'No es una dirección de correo electronico'
+                }
+            }
+        },
+        homeAdress:{
+            type:type.STRING(250),
+            allowNull:false
+        },
+        userCreate:{
+            type:type.STRING(250),
+            allowNull:false
+        },
+        userUpdate:{
+            type:type.STRING(250),
+            allowNull:true
+        },
+        isActive:{
+            type:type.INTEGER,
+            allowNull:false,
+            defaultValue:1
+        }
+    })
+}

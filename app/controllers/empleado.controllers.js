@@ -61,8 +61,8 @@ exports.obtenerEmpleados=async(req,res)=>{
 }
 
 exports.obtenerEmpleado= async(req,res)=>{
-    let id=req.params.id;
     try{
+        let id=req.params.id;
         var empleado=await service.obtenerEmpleado(id);
         if(empleado){
             let role=await Role.findOne({
