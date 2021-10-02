@@ -18,6 +18,14 @@ module.exports= class Propietario{
         });
         return propietario;
     }
+    obtenerPropietarioByEmail(email){
+        const propietario=this.PropietarioModel.findOne({
+            where:{
+                email:email
+            }
+        });
+        return propietario;
+    }
     borrarPropietario(id){
         const propietario=this.PropietarioModel.destroy({
             where:{

@@ -2,12 +2,23 @@ const {Propietario}=require('../config/mysql');
 const ServicePropietario=require('../services/propietario.service');
 const service=new ServicePropietario(Propietario);
 const errorMessages=require('../config/errors');
+const{check,validationResult}=require('express-validator');
 
 exports.createPorpietario=async(req,res)=>{
+    
     try{
+        const errors=validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
         let datos=req.body;
         let id=datos.id;
-        let propietario=await service.createPropietario(datos);
+        let email=datos.email;
+        let propietario=await service.obtenerPropietario(id);
+        if(propietario) return res.status(409).send({message:'Ya existe un propietario registrado con ese id'});
+        propietario=await service.obtenerPropietarioByEmail(email);
+        if(propietario) return  res.status(409).send({message:'Ya existe un propietario registrado con ese email'});
+        propietario=await service.createPropietario(datos);
         return res.status(201).send({propietario});
     }catch(error){
         return res.status(500).send({message:errorMessages.error});
