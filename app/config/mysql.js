@@ -5,6 +5,7 @@ const RoleModel=require('../models/role');
 const EmpleadoModel=require('../models/empleado');
 const UserModel=require('../models/user');
 const PropietarioModel=require('../models/propietario');
+const MascotaPropietarioModel=require('../models/mascota_propietario');
 
 
 const sequelize=new Sequelize(config.DB_NAME,config.DB_USER,config.DB_PASSWORD,{
@@ -20,6 +21,7 @@ const Empleado=EmpleadoModel(sequelize,Sequelize);
 const User=UserModel(sequelize,Sequelize);
 const Mascota=MascotaModel(sequelize,Sequelize);
 const Propietario=PropietarioModel(sequelize,Sequelize);
+const MascotaPropietario=MascotaPropietarioModel(sequelize,Sequelize);
 
 module.exports={
     sequelize,
@@ -27,6 +29,6 @@ module.exports={
     User,
     Mascota,
     Role,
-    Propietario
-
+    Propietario,
+    MascotaPropietario
 }
