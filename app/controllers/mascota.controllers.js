@@ -15,9 +15,14 @@ exports.createMascota= async (req,res)=>{
         return res.status(422).json({ errors: errors.array() });
     }
     try{
-        var mascota=await service1.createMascota(req.body);
         var propietario=await service2.obtenerPropietario(req.body.idPropietario);
         if(!propietario) return res.status(404).send({message:errorMessages.errorPropietariosInexistentes});
+
+        var mascota_propietario=await service3.obtenerMascotaPropietario(req.body.id,req.body.idPropietario);
+        if(mascota_propietario) return res.status(409).send({message:errorMessages.errorMascotaPropietarioExistente});
+
+        var mascota=await service1.createMascota(req.body);
+
         await service3.createMascotaPropietario(req.body.id,req.body.idPropietario);
         res.status(201).send({mascota});
     }catch(e)
@@ -54,7 +59,7 @@ exports.borrarMascota=async(req,res)=>{
         let id=req.params.id;
         let mascota=await service1.obtenerMascota(id);
         if(!mascota)return res.status(404).send({message: 'Mascota no identificada.'});
-        await service1.borrarMascota(id);
+        service1.borrarMascota(id);
         return res.status(200).send({message: 'Mascota depurada'});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
@@ -74,5 +79,43 @@ exports.actualizarMascota=async(req,res)=>{
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     } 
+}
+
+exports.agregarMascotaPropietario=async(req,res)=>{
+    try {
+        let id=req.params.id;
+        let idPropietario=req.body.idPropietario;
+
+        var propietario=await service2.obtenerPropietario(idPropietario);
+        if(!propietario) return res.status(404).send({message:errorMessages.errorPropietariosInexistentes});
+
+        var mascota_propietario=await service3.obtenerMascotaPropietario(id, idPropietario);
+        if(mascota_propietario) return res.status(409).send({message:errorMessages.errorMascotaPropietarioExistente});
+        
+        let mascotaPropietario=await service3.createMascotaPropietario(id, idPropietario);
+        res.status(201).send({mascotaPropietario});
+
+    } catch (error) {
+        return res.status(500).send({message:errorMessages.error})
+    }
+}
+
+exports.borrarMascotaPropietario=async(req,res)=>{
+    try {
+        let id=req.params.id;
+        let idPropietario=req.body.idPropietario;
+
+        var propietario=await service2.obtenerPropietario(idPropietario);
+        if(!propietario) return res.status(404).send({message:errorMessages.errorPropietariosInexistentes});
+
+        var mascota_propietario=await service3.obtenerMascotaPropietario(id, idPropietario);
+        if(!mascota_propietario) return res.status(404).send({message:errorMessages.errorMascotaPropietarioInexistente});
+
+        service3.borrarMascotaPropietario(id, idPropietario);
+        return res.status(200).send({message: 'Borrado exitoso.'});
+    } catch (error) {
+        return res.status(500).send({message:errorMessages.error})
+    }
+    
 }
 

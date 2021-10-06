@@ -26,4 +26,6 @@ module.exports={
     errorPlanObligatorio:"La ruta del archivo Plan de Vacunación es obligatoria.",
     errorCuidadosObligatorio:"La ruta del archivo Cuidados es obligatoria.",
     errorPropietariosInexistentes:"No hay propietario registrados.",
+    errorMascotaPropietarioExistente:"El ID del propietario ingresado ya está registrado como dueño de la mascota.",
+    errorMascotaPropietarioInexistente:"El ID del propietario ingresado no está registrado como dueño de la mascota",
 }

@@ -17,5 +17,9 @@ router.post('/mascotas',[authorization.verifytoken,authorization.autorizacionMas
 router.get('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.obtenerMascota);
 router.put('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.actualizarMascota);
 router.delete('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascota);
+router.post('/mascota_propietarios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.agregarMascotaPropietario);
+router.delete('/mascota_propietarios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascotaPropietario);
+
+
 
 module.exports=router;
