@@ -47,8 +47,19 @@ exports.obtenerMascota= async(req,res)=>{
     try {
         let id=req.params.id;
         let mascota=await service1.obtenerMascota(id);
-        if(mascota)return res.status(200).send({mascota});
-        return res.status(404).send({message: 'Mascota no identificada.'});
+        if(!mascota)return res.status(404).send({message: 'Mascota no identificada.'});
+        let propietario=await service3.obtenerAllMascotasPropietarios(id);
+        let propietarios=[]
+        for(i=0;i<propietario.length;i++){
+            let idPropietario=propietario[i]
+            propietarios.push(idPropietario.idPropietario)
+        }
+        if(propietarios.length!=0){
+            mascota.dataValues.propietarios=propietarios;
+        }else{
+            mascota.dataValues.propietarios='La mascota no tiene propietarios registrados'
+        }
+        return res.status(200).send({mascota});        
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     }
@@ -59,7 +70,8 @@ exports.borrarMascota=async(req,res)=>{
         let id=req.params.id;
         let mascota=await service1.obtenerMascota(id);
         if(!mascota)return res.status(404).send({message: 'Mascota no identificada.'});
-        service1.borrarMascota(id);
+        service1.borrarMascota(id);        
+        await service3.borrarAllMascotaPropietario(id);
         return res.status(200).send({message: 'Mascota depurada'});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
@@ -70,7 +82,6 @@ exports.borrarMascota=async(req,res)=>{
 exports.actualizarMascota=async(req,res)=>{
     try {
         let id=req.params.id;
-        let datos=req.body;
         
         let mascota=await service1.obtenerMascota(id);
         if(!mascota)return res.status(404).send({message: 'Mascota no identificada.'});
@@ -116,6 +127,4 @@ exports.borrarMascotaPropietario=async(req,res)=>{
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     }
-    
 }
-

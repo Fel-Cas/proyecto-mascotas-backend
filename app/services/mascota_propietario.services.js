@@ -20,7 +20,7 @@ module.exports= class MascotaPropietario{
         return mascotaPropietario;
     }
 
-    borrarMascotaPropietario(idMascota, idPropietario){
+    borrarMascotaPropietario(idMascota,idPropietario){
         const mascotaPropietario=this.MascotaPropietarioModel.destroy({
             where:{
                 idMascota:idMascota,
@@ -38,4 +38,19 @@ module.exports= class MascotaPropietario{
         });
         return mascotaPropietario;
     }
+    borrarAllMascotaPropietario(){
+        const mascotaPropietario=this.MascotaPropietarioModel.destroy({
+            where:{
+                idMascota:idMascota
+            }
+        });
+    }
+    obtenerAllMascotasPropietarios(id){
+        const mascotaPropietario=this.MascotaPropietarioModel.findAll({
+            where:{
+                idMascota:id,
+            }});
+        return mascotaPropietario;
+    }
+    
 }
