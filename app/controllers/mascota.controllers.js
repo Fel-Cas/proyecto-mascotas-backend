@@ -17,13 +17,8 @@ exports.createMascota= async (req,res)=>{
     try{
         var propietario=await service2.obtenerPropietario(req.body.idPropietario);
         if(!propietario) return res.status(404).send({message:errorMessages.errorPropietariosInexistentes});
-
-        var mascota_propietario=await service3.obtenerMascotaPropietario(req.body.id,req.body.idPropietario);
-        if(mascota_propietario) return res.status(409).send({message:errorMessages.errorMascotaPropietarioExistente});
-
         var mascota=await service1.createMascota(req.body);
-
-        await service3.createMascotaPropietario(req.body.id,req.body.idPropietario);
+        await service3.createMascotaPropietario(mascota.id,req.body.idPropietario);
         res.status(201).send({mascota});
     }catch(e)
     {
