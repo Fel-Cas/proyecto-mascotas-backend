@@ -1,6 +1,3 @@
-const Op = Sequelize.Op;
-
-const servicio = require("../models/servicio");
 
 module.exports= class Servicio{
     constructor(Servicio){

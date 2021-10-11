@@ -6,6 +6,7 @@ const routerUser=require('./routes/user.routes');
 const routerAuth=require('./routes/auth.routes');
 const routerMascota=require('./routes/mascota.routes');
 const routerPropietario=require('./routes/propietario.routes');
+const routerServicio=require('./routes/servicio.routes');
 const logger = require('morgan');
 const PORT = process.env.PORT || 3050;
 
@@ -25,6 +26,7 @@ app.use('/api-user',routerUser);
 app.use('/api-auth',routerAuth);
 app.use('/api-mascota',routerMascota);
 app.use('/api-propietario',routerPropietario);
+app.use('/api-servicio',routerServicio);
 
   // error handler
   app.use(function(err, req, res, next) {

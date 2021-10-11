@@ -4,6 +4,7 @@ module.exports=(sequelize,type)=>{
         id:{
             type:type.INTEGER,
             primaryKey:true,
+            autoIncrement: true
         },
         estadoServicio:{
             type:type.STRING(50),
