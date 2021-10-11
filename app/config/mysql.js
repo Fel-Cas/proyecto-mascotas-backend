@@ -6,7 +6,7 @@ const EmpleadoModel=require('../models/empleado');
 const UserModel=require('../models/user');
 const PropietarioModel=require('../models/propietario');
 const MascotaPropietarioModel=require('../models/mascota_propietario');
-
+const ServicioModel=require('../models/servicio');
 
 const sequelize=new Sequelize(config.DB_NAME,config.DB_USER,config.DB_PASSWORD,{
     host:config.DB_HOST,
@@ -22,6 +22,7 @@ const User=UserModel(sequelize,Sequelize);
 const Mascota=MascotaModel(sequelize,Sequelize);
 const Propietario=PropietarioModel(sequelize,Sequelize);
 const MascotaPropietario=MascotaPropietarioModel(sequelize,Sequelize);
+const Servicio=ServicioModel(sequelize,Sequelize);
 
 module.exports={
     sequelize,
@@ -30,5 +31,6 @@ module.exports={
     Mascota,
     Role,
     Propietario,
-    MascotaPropietario
+    MascotaPropietario,
+    Servicio
 }

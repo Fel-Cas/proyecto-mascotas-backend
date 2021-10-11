@@ -28,4 +28,5 @@ module.exports={
     errorPropietariosInexistentes:"No hay propietario registrados.",
     errorMascotaPropietarioExistente:"El ID del propietario ingresado ya está registrado como dueño de la mascota.",
     errorMascotaPropietarioInexistente:"El ID del propietario ingresado no está registrado como dueño de la mascota",
+    errorServiciosFechaObligatoria: "Para Solicitar un Servicio Es necesario que ingrese la fecha"
 }
