@@ -11,12 +11,7 @@ module.exports= class Servicio{
     }
 
     obtenerServiciosbyFecha(fecha){
-        const servicios=this.ServicioModel.findAll({
-            where:{
-                fechainicio:fecha
-            }
-        });
-
+        const servicios=this.ServicioModel.findAll();
         return servicios;
     }
 

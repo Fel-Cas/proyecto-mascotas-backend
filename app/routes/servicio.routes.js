@@ -8,7 +8,8 @@ const authorization=require('../middleware/verifyToken')
 
 router.post('/servicios',[authorization.verifytoken,authorization.autorizacionMascotas],[
     check('fechainicio',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
-    check('fechafinal',errorMessages.errorServiciosFechaObligatoria).not().isEmpty()
+    check('fechafinal',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
+    check('idPropietario','El id del propietario es obligatorio').not().isEmpty()
 ],controllerServicio.createServicio);
 router.get('/servicios',[authorization.verifytoken,authorization.autorizacionMascotas],[
     check('fecha',errorMessages.errorServiciosFechaObligatoria).not().isEmpty()],controllerServicio.obtenerServicios);

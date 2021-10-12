@@ -9,7 +9,7 @@ module.exports=(sequelize,type)=>{
         estadoServicio:{
             type:type.STRING(50),
             allowNull:false,
-            defaultValue: "asignada"
+            defaultValue: "ASIGNADA"
 
         },
         novedades:{
@@ -27,6 +27,10 @@ module.exports=(sequelize,type)=>{
         idMascota:{
             type:type.INTEGER,
             allowNull:true
+        },
+        idPropietario:{
+            type:type.STRING(150),
+            allowNull:false
         }
     })
 }
