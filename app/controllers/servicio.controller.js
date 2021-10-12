@@ -58,7 +58,16 @@ exports.obtenerServicios=async(req,res)=>{
         return res.status(500).send({message:errorMessages.error})
     }
 }
-
+exports.obtenerServicio=async(req,res)=>{
+    try{
+        let id=req.params.id;
+        let servicio=await service2.obtenerServicioById(id);
+        if(!servicio) return res.status(404).send({message:'La cita no está dispobible'});
+        return res.status(200).send({servicio});
+    }catch(err){
+        return res.status(500).send({message:errorMessages.error})
+    }
+}
 exports.eliminarServicio=async(req,res)=>{
     try {
         let id=req.params.id;
