@@ -1,4 +1,6 @@
 
+const { Op } = require('sequelize');
+
 module.exports= class Servicio{
     constructor(Servicio){
         this.ServicioModel=Servicio;
@@ -28,14 +30,14 @@ module.exports= class Servicio{
     }
 
     validarServicio(fechainicial,fechafinal){
-        const servicio=this.ServicioModel.findOne({
+        const servicios=this.ServicioModel.findAll({
             where:{
                 fechainicio: {
                     [Op.between]: [fechainicial, fechafinal]
                   }
             }
         });
-        return servicio;
+        return servicios;
     }
 
 

@@ -10,8 +10,8 @@ const errorMessages=require('../config/errors');
 exports.createServicio= async (req,res)=>{
 
     let id=req.body.idMascota;
-    let fechainicial=req.params.fechainicio;
-    let fechafinal=req.params.fechafinal;
+    let fechainicial=req.body.fechainicio;
+    let fechafinal=req.body.fechafinal;
 
     const errors=validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,17 +19,17 @@ exports.createServicio= async (req,res)=>{
     }
     try{
 
-        /*let servicios=await service2.validarServicio(fechainicial,fechafinal);
-        if(servicios.length<0){
+        let servicios=await service2.validarServicio(fechainicial,fechafinal);
+        if(servicios.length>0){
             return res.status(404).send({message:'Ya existe una cita asignada en este espacio'});
-        }*/
-        console.log('dfdfd')
+        }
+        
         let mascotas=await service1.obtenerMascota(id);
         if(mascotas.length< 0){
             return res.status(404).send({message:'la Mascota no esta registradas'});
         }
 
-        console.log('flksflksfdn')
+        
         var servicio=await service2.createServicio(req.body);
         res.status(201).send({servicio});
     }catch(e)
@@ -39,7 +39,7 @@ exports.createServicio= async (req,res)=>{
 }
 
 exports.obtenerServicios=async(req,res)=>{
-    let fecha=req.params.fecha;
+    let fecha=req.body.fecha;
     try {
         let mascotas=await service2.obtenerServiciosbyFecha(fecha);
 
@@ -70,7 +70,7 @@ exports.actualizarServicio=async(req,res)=>{
         
         let mascota=await service2.obtenerServicioById(id);
         if(!mascota)return res.status(404).send({message: 'Servicio no Encontrado'});
-        await service2.actualizarServicio(id,datos);
+        await service2.actualizarServicio(id,req.body);
         return res.status(200).send({message: 'Servicio Actualizado'});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
