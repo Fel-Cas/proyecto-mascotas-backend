@@ -109,8 +109,8 @@ exports.agregarMascotaPropietario=async(req,res)=>{
 exports.borrarMascotaPropietario=async(req,res)=>{
     try {
         let id=req.params.id;
-        let idPropietario=req.body.idPropietario;
-
+        let idPropietario=req.params.idPropietario;
+        console.log(idPropietario);
         var propietario=await service2.obtenerPropietario(idPropietario);
         if(!propietario) return res.status(404).send({message:errorMessages.errorPropietariosInexistentes});
 

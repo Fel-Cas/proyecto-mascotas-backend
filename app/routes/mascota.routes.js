@@ -19,7 +19,7 @@ router.get('/mascotas/:id',[authorization.verifytoken,authorization.autorizacion
 router.put('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.actualizarMascota);
 router.delete('/mascotas/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascota);
 router.post('/mascota_propietarios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.agregarMascotaPropietario);
-router.delete('/mascota_propietarios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascotaPropietario);
+router.delete('/mascota_propietarios/:id/:idPropietario',[authorization.verifytoken,authorization.autorizacionMascotas],controllerMascota.borrarMascotaPropietario);
 
 
 
