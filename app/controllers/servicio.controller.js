@@ -59,9 +59,10 @@ exports.obtenerServicios=async(req,res)=>{
         
         let finalServices=[]       
         for(let i=0;i<servicios.length;i++){
-            if(servicios[i].dataValues.fecha>fechaHoy)  finalServices.push(servicios[i].dataValues);
+            if(servicios[i].dataValues.fecha>fechaHoy&&servicios[i].dataValues.isActive!=0)  finalServices.push(servicios[i].dataValues);
         }
-        res.status(200).send({finalServices});
+        if(finalServices.length==0) return res.status(404).send({message:'No hay citas registradas'});
+        return res.status(200).send({finalServices});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     }
@@ -73,7 +74,7 @@ exports.obtenerServicio=async(req,res)=>{
         if(!servicio) return res.status(404).send({message:'La cita no está dispobible'});
         let hoy=new Date(Date.now());
         let fechaHoy=String(`${hoy.getFullYear()}-${hoy.getMonth()+1}-${hoy.getDate()}`);
-        if(servicio.fecha>fechaHoy) return res.status(405).send({message:'La fecha de la cita ya caduco'})
+        if(servicio.fecha>fechaHoy&&servicio.dataValues.isActive==0) return res.status(405).send({message:'La fecha de la cita ya caducó.'})
         return res.status(200).send({servicio});
     }catch(err){
         return res.status(500).send({message:errorMessages.error})
@@ -96,9 +97,22 @@ exports.actualizarServicio=async(req,res)=>{
     try {
         let id=req.params.id;
         
-        let mascota=await service2.obtenerServicioById(id);
-        if(!mascota)return res.status(404).send({message: 'Servicio no Encontrado'});
+        let servicio=await service2.obtenerServicioById(id);
+        if(!servicio)return res.status(404).send({message: 'Servicio no Encontrado'});
         await service2.actualizarServicio(id,req.body);
+        return res.status(200).send({message: 'Servicio Actualizado'});
+    } catch (error) {
+        return res.status(500).send({message:errorMessages.error})
+    } 
+}
+
+exports.desactivarServicio=async(req,res)=>{
+    try {
+        let id=req.params.id;    
+        let servicio=await service2.obtenerServicioById(id);
+        if(!servicio)return res.status(404).send({message: 'Servicio no Encontrado'});
+        servicio.dataValues.isActive=0
+        await service2.desactivarServicio(id,servicio.dataValues);
         return res.status(200).send({message: 'Servicio Actualizado'});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})

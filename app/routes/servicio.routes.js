@@ -18,7 +18,7 @@ router.put('/servicio/:id',[authorization.verifytoken,authorization.autorizacion
     check('hora',errorMessages.errorServiciosFechaObligatoria).not().isEmpty()
 ],controllerServicio.actualizarServicio);
 router.delete('/servicios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerServicio.eliminarServicio);
-
+router.put('/desactivar-servicio/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerServicio.desactivarServicio);
 
 
 

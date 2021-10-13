@@ -31,6 +31,11 @@ module.exports=(sequelize,type)=>{
         idPropietario:{
             type:type.STRING(150),
             allowNull:false
+        },
+        isActive:{
+            type:type.INTEGER,
+            allowNull:false,
+            defaultValue:1
         }
     })
 }
