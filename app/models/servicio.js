@@ -16,12 +16,12 @@ module.exports=(sequelize,type)=>{
             type:type.STRING(150),
             allowNull:true
         },
-        fechainicio:{
-            type:type.DATE,
+        fecha:{
+            type:type.DATEONLY,
             allowNull:false
         },
-        fechafinal:{
-            type:type.DATE,
+        hora:{
+            type:type.TIME,
             allowNull:false
         },
         idMascota:{

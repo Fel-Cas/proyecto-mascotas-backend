@@ -10,7 +10,7 @@ module.exports= class Servicio{
         return servicio;
     }
 
-    obtenerServiciosbyFecha(fecha){
+    obtenerServicios(){
         const servicios=this.ServicioModel.findAll();
         return servicios;
     }
@@ -24,14 +24,11 @@ module.exports= class Servicio{
         return servicio;
     }
 
-    validarServicio(fechainicial,fechafinal){
+    validarServicio(fecha){
         const servicios=this.ServicioModel.findAll({
             where:{
-                fechainicio: {
-                    [Op.between]: [fechainicial, fechafinal]
-                  }
-            }
-        });
+                fecha:fecha}
+            });
         return servicios;
     }
 

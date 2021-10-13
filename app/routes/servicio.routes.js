@@ -7,15 +7,15 @@ const authorization=require('../middleware/verifyToken')
 
 
 router.post('/servicios',[authorization.verifytoken,authorization.autorizacionMascotas],[
-    check('fechainicio',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
-    check('fechafinal',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
+    check('fecha',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
+    check('hora',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
     check('idPropietario','El id del propietario es obligatorio').not().isEmpty()
 ],controllerServicio.createServicio);
 router.get('/servicios',[authorization.verifytoken,authorization.autorizacionMascotas],controllerServicio.obtenerServicios);
 router.get('/servicios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerServicio.obtenerServicio);
 router.put('/servicio/:id',[authorization.verifytoken,authorization.autorizacionMascotas],[
-    check('fechainicio',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
-    check('fechafinal',errorMessages.errorServiciosFechaObligatoria).not().isEmpty()
+    check('fecha',errorMessages.errorServiciosFechaObligatoria).not().isEmpty(),
+    check('hora',errorMessages.errorServiciosFechaObligatoria).not().isEmpty()
 ],controllerServicio.actualizarServicio);
 router.delete('/servicios/:id',[authorization.verifytoken,authorization.autorizacionMascotas],controllerServicio.eliminarServicio);
 

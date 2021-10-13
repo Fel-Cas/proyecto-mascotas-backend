@@ -26,22 +26,22 @@ exports.createServicio= async (req,res)=>{
     }
     try{
         
-        let servicios=await service2.validarServicio(fechainicial,fechafinal);
-        if(servicios.length>0){
-            return res.status(404).send({message:'Ya existe una cita asignada en este espacio'});
+        let fechas=await service2.validarServicio(req.body.fecha);
+        if(fechas){
+            for(let i=0;i<fechas.length;i++){
+                if(fechas[i].hora==req.body.hora) return res.status(405).send({message: 'La hora de la cita no está disponible'});
+            }
         }
-        
         let mascotas=await service1.obtenerMascota(id);
         if(!mascotas){
             return res.status(404).send({message:'la Mascota no esta registradas'});
         }
         let mascotaPropietario=await service4.obtenerMascotaPropietario(id,idPropietario) 
-        if(!mascotaPropietario) return res.status(404).send({message:'El id del propietario no es un dueño de la mascota'});       
+        if(!mascotaPropietario) return res.status(404).send({message:'El id del propietario no es un dueño de la mascota'});     
         var servicio=await service2.createServicio(req.body);
-        let propietario=await service3.obtenerPropietario(idPropietario);
-        console.log(propietario.email);
+        let propietario=await service3.obtenerPropietario(idPropietario); 
         let token=jwt.sign({idCita:servicio.id},config.SECRET_TOKEN,{expiresIn:'8h'});
-        await emailer.EmailCita(propietario.email,servicio.fechainicio,servicio.fechafinal,token);
+        await emailer.EmailCita(propietario.email,servicio.fecha,servicio.hora,token);
         res.status(201).send({servicio});
     }catch(e)
     {
@@ -52,8 +52,16 @@ exports.createServicio= async (req,res)=>{
 exports.obtenerServicios=async(req,res)=>{
     
     try {
-        let mascotas=await service2.obtenerServiciosbyFecha();
-        res.status(200).send({mascotas});
+        let servicios=await service2.obtenerServicios();
+        if(!servicios) return res.status(404).send({message:'No hay citas registradas'});
+        let hoy=new Date(Date.now());
+        let fechaHoy=String(`${hoy.getFullYear()}-${hoy.getMonth()+1}-${hoy.getDate()}`);
+        
+        let finalServices=[]       
+        for(let i=0;i<servicios.length;i++){
+            if(servicios[i].dataValues.fecha>fechaHoy)  finalServices.push(servicios[i].dataValues);
+        }
+        res.status(200).send({finalServices});
     } catch (error) {
         return res.status(500).send({message:errorMessages.error})
     }
@@ -63,6 +71,9 @@ exports.obtenerServicio=async(req,res)=>{
         let id=req.params.id;
         let servicio=await service2.obtenerServicioById(id);
         if(!servicio) return res.status(404).send({message:'La cita no está dispobible'});
+        let hoy=new Date(Date.now());
+        let fechaHoy=String(`${hoy.getFullYear()}-${hoy.getMonth()+1}-${hoy.getDate()}`);
+        if(servicio.fecha>fechaHoy) return res.status(405).send({message:'La fecha de la cita ya caduco'})
         return res.status(200).send({servicio});
     }catch(err){
         return res.status(500).send({message:errorMessages.error})
