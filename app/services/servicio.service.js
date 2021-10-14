@@ -57,4 +57,16 @@ module.exports= class Servicio{
         });
         return servicio;
     }
+
+    desactivarServicio(id,datos){
+        const servicio=this.ServicioModel.update(datos,
+            {
+                where:
+                {
+                    id:id
+                }
+            });
+        console.log(servicio)
+        return servicio;
+    }
 }
