@@ -1,11 +1,11 @@
 module.exports={
-    SECRET_TOKEN:'mascota-la-mejor',
-    DB_NAME:"ingweb_dbmascotas",
-    DB_USER:"ingweb",
-    DB_PASSWORD:"adivinala",
-    DB_HOST:"mysql-ingweb.alwaysdata.net",
-    EMAIL_USER:'jaramillo.ocamposantiago18@gmail.com',
-    EMAIL_PASSWORD:'glialpswngjehcnq',
+    SECRET_TOKEN:'',
+    DB_NAME:"",
+    DB_USER:"",
+    DB_PASSWORD:"",
+    DB_HOST:"",
+    EMAIL_USER:'',
+    EMAIL_PASSWORD:'',
     PORT:process.env.PORT || 3000
     
 }
